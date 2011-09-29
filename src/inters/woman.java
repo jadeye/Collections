@@ -17,26 +17,13 @@ public class woman extends human {
     }
 
     String clsName ="";
-    //Class<Integer> c = int.class;
-    //char mySex = super.getSex((char)c);
     public String getClsName() {
         clsName = getClassName(woman.class);
-                //ClassUtils.class);
         return clsName;
     }
 
     private void setClsName() {
         this.clsName = getClassName(ClassUtils.class);
     }
-
-
-    //System.out.println("decl class = " + m.getDeclaringClass());
-
-    /*
-    Class c = Class.forName("java.lang.String");
-    Method m[] = c.getDeclaredMethods();
-    System.out.println(m[0].
-
-    */
 
 }

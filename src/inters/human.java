@@ -22,12 +22,11 @@ public class human {
 
     public String getSex(String cName) {
         this.setSex();
-        if (cName == "woman"){
+        if (cName.equals("woman"))
                 mySex = sex[0];
-        }
-        else if (cName == "man") {
-            return mySex;
-        }mySex =  sex[1];
+        else
+            mySex =  sex[1];
+
         return mySex;
     }
 
