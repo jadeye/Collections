@@ -46,11 +46,11 @@ public class basket{
         //Apple[] apples = new Apple[1];
         //Fruit[] fruits = apples;
         //fruits[0] = new Strawberry();
-
+        /*
         List<Apple> apples = new ArrayList<Apple>();
         List<? extends Fruit> fruits = apples;
         fruits.add(new Strawberry());
-
+          */
 
 
     }
