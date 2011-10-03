@@ -11,18 +11,19 @@ import static inters.ClassUtils.getClassName;
  * To change this template use File | Settings | File Templates.
  */
 
-public class woman extends human {
+public class woman extends superwoman {
     public woman(int age, String name) {
         super(age, name);
     }
 
-    String clsName ="";
+    @Override
     public String getClsName() {
         clsName = getClassName(woman.class);
         return clsName;
     }
 
-    private void setClsName() {
+    @Override
+    protected void setClsName() {
         this.clsName = getClassName(ClassUtils.class);
     }
 

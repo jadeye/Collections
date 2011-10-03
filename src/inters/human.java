@@ -20,6 +20,9 @@ public class human {
         this.name = name;
     }
 
+    public human() {
+    }
+
     public String getSex(String cName) {
         this.setSex();
         if (cName.equals("woman"))

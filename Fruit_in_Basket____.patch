@@ -1,0 +1,225 @@
+Index: src/fruit/basket.java
+===================================================================
+--- src/fruit/basket.java	(revision e286bcb4a837fee62d465257d1c51bb87f6fa88b)
++++ src/fruit/basket.java	(revision )
+@@ -1,8 +1,6 @@
+ package fruit;
+ 
+-import java.util.ArrayList;
+-import java.util.Iterator;
+-import java.util.List;
++import java.util.*;
+ 
+ /**
+  * Created by IntelliJ IDEA.
+@@ -11,34 +9,34 @@
+  * Time: 1:53 PM
+  * To change this template use File | Settings | File Templates.
+  */
+-public class basket{
++public class basket {
+ 
+-    public static void main(String[] args){
++    public static void main(String[] args) {
+         List<String> str = new ArrayList<String>();
+         str.add("Hello ");
+         str.add("World.");
+-        String MyString ="";
++        String MyString = "";
+         /*
+         String MyString = str.get(0);
+ 
+         System.out.println(MyString);
+         System.out.println(str.get(0)+str.get(1));
+         */
+-        for (Iterator<String> iter=str.iterator(); iter.hasNext();){
++        for (Iterator<String> iter = str.iterator(); iter.hasNext(); ) {
+             //String s= iter.next();
+             MyString = MyString.concat(iter.next());
+-            }
++        }
+         System.out.println(MyString);
+ 
+ 
+         List<Integer> ints = new ArrayList<Integer>();
+-            ints.add(0);
+-            ints.add(1);
++        ints.add(0);
++        ints.add(1);
+ 
+-            int sum = 0;
+-            for (int i : ints) {
++        int sum = 0;
++        for (int i : ints) {
+             sum += i;
+-            }
++        }
+ 
+ //        List<Apple> apples = new ArrayList<Apple>();
+ //        List<? extends Fruit> fruits = apples;
+@@ -51,8 +49,17 @@
+         List<? extends Fruit> fruits = apples;
+         fruits.add(new Strawberry());
+           */
++        Collection<Fruit> fruits = new HashSet<Fruit>();
++        fruits.add(new Strawberry());
++        fruits.add(new Apple());
+ 
++        for (Iterator<Fruit> itera1 = fruits.iterator(); itera1.hasNext(); ) {
++            //String s= iter.next();
++            Fruit MyFruit = itera1.next();
++            System.out.println(MyFruit);
++        }
+ 
++
+     }
+ 
+ }
+Index: src/fruit/Strawberry.java
+===================================================================
+--- src/fruit/Strawberry.java	(revision e286bcb4a837fee62d465257d1c51bb87f6fa88b)
++++ src/fruit/Strawberry.java	(revision )
+@@ -1,5 +1,7 @@
+ package fruit;
+ 
++import static inters.ClassUtils.getClassName;
++
+ /**
+  * Created by IntelliJ IDEA.
+  * User: jud
+@@ -8,4 +10,18 @@
+  * To change this template use File | Settings | File Templates.
+  */
+ public class Strawberry extends Fruit {
++
++    String name = "";
++
++    public String getClsName() {
++        //name = getClassName(Strawberry.class);
++        this.setClsName();
++        return name;
+-}
++    }
++
++    protected void setClsName() {
++        this.name = getClassName(Strawberry.class);
++    }
++
++
++}
+Index: src/fruit/Apple.java
+===================================================================
+--- src/fruit/Apple.java	(revision e286bcb4a837fee62d465257d1c51bb87f6fa88b)
++++ src/fruit/Apple.java	(revision )
+@@ -7,5 +7,5 @@
+  * Time: 6:45 PM
+  * To change this template use File | Settings | File Templates.
+  */
+-public class Apple {
++public class Apple extends Fruit {
+ }
+Index: src/fruit/Fruit.java
+===================================================================
+--- src/fruit/Fruit.java	(revision e286bcb4a837fee62d465257d1c51bb87f6fa88b)
++++ src/fruit/Fruit.java	(revision )
+@@ -9,5 +9,39 @@
+  */
+ public class Fruit {
+ 
++    float weight = 0;
++    String color = "";
++    String[] colors = {"red", "green", "orange", "yellow", "purple"};
++    //String name = "";
+ 
++    public Fruit(float weight, int ind) {
++        this.setWeight(weight);
++        this.setColor(ind);
++        //this.name = n;
+-}
++    }
++
++    public Fruit() {
++    }
++
++    public float getWeight() {
++        return this.weight;
++    }
++
++    public void setWeight(float w) {
++        this.weight = w;
++    }
++
++    public String getColor(int ind) {
++        color = this.colors[ind];
++        return color;
++    }
++
++    public void setColor(int ind) {
++        this.color = this.colors[ind];
++    }
++
++    public void ShowMe() {
++        System.out.println("I am " + this.color + " in color and \n");
++        System.out.println("Weight " + this.weight + " Kgs...");
++    }
++}
+Index: src/fruit/ClassUtils.java
+===================================================================
+--- src/fruit/ClassUtils.java	(revision )
++++ src/fruit/ClassUtils.java	(revision )
+@@ -0,0 +1,55 @@
++package fruit;
++
++/**
++ * Created by IntelliJ IDEA.
++ * User: jud
++ * Date: 9/30/11
++ * Time: 12:31 AM
++ * To change this template use File | Settings | File Templates.
++ */
++public class ClassUtils {
++    // returns the class (without the package if any)
++    public static String getClassName(Class c) {
++        String FQClassName = c.getName();
++        int firstChar;
++        firstChar = FQClassName.lastIndexOf('.') + 1;
++        if (firstChar > 0) {
++            FQClassName = FQClassName.substring(firstChar);
++        }
++        return FQClassName;
++    }
++
++
++    // returns package and class name
++    public static String getFullClassName(Class c) {
++        return c.getName();
++    }
++
++    // returns the package without the classname, empty string if
++    // there is no package
++    public static String getPackageName(Class c) {
++        String fullyQualifiedName = c.getName();
++        int lastDot = fullyQualifiedName.lastIndexOf('.');
++        if (lastDot == -1) {
++            return "";
++        }
++        return fullyQualifiedName.substring(0, lastDot);
++    }
++
++    /*
++  public static void main(String[] args) {
++    System.out.println(ClassUtils.getClassName(java.awt.Frame.class));
++    System.out.println(ClassUtils.getFullClassName(java.awt.Frame.class));
++    System.out.println(ClassUtils.getPackageName(java.awt.Frame.class));
++    System.out.println("----");
++    System.out.println(ClassUtils.getClassName(ClassUtils.class));
++    System.out.println(ClassUtils.getFullClassName(ClassUtils.class));
++    System.out.println(ClassUtils.getPackageName(ClassUtils.class));
++    System.out.println("----");
++    java.util.Calendar cal = java.util.Calendar.getInstance();
++    System.out.println(ClassUtils.getClassName(cal.getClass()));
++    System.out.println(ClassUtils.getFullClassName(cal.getClass()));
++    System.out.println(ClassUtils.getPackageName(cal.getClass()));
++    }
++    */
++}
